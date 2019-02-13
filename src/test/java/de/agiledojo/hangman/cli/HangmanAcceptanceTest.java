@@ -1,12 +1,12 @@
-package de.agiledojo.hangman;
+package de.agiledojo.hangman.cli;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
+import static de.agiledojo.hangman.cli.IO.initializeStdOut;
+import static de.agiledojo.hangman.cli.IO.enter;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class HangmanAcceptanceTest {
@@ -20,22 +20,11 @@ class HangmanAcceptanceTest {
 
     @Test
     void showsPlaceHoldersWhenWordDoesNotContainProvidedLetter() {
-        sendToStdIn("q");
+        enter("q");
         runApplicationWithArgument("Secret");
         assertOutputToBe("------\n");
     }
 
-    private ByteArrayOutputStream initializeStdOut() {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(baos);
-        System.setOut(ps);
-        return baos;
-    }
-
-    private void sendToStdIn(String input) {
-
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-    }
 
     private void assertOutputToBe(String output) {
         assertThat(stdOut.toString()).isEqualTo(output);

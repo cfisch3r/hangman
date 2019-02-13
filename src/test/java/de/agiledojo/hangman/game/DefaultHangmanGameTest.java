@@ -19,4 +19,26 @@ class DefaultHangmanGameTest {
         game.guess("a");
         verify(display).showBoard("------");
     }
+
+    @Test
+    void showsMatchingLetters() {
+        DefaultHangmanGame game = new DefaultHangmanGame("Secret",display);
+        game.guess("e");
+        verify(display).showBoard("-e--e-");
+    }
+
+    @Test
+    void matchingIsCaseInsensitive() {
+        DefaultHangmanGame game = new DefaultHangmanGame("Secret",display);
+        game.guess("s");
+        verify(display).showBoard("S-----");
+    }
+
+    @Test
+    void matchingIsCumulative() {
+        DefaultHangmanGame game = new DefaultHangmanGame("Secret",display);
+        game.guess("s");
+        game.guess("e");
+        verify(display).showBoard("Se--e-");
+    }
 }

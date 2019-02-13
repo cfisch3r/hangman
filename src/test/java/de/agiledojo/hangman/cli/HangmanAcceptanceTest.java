@@ -25,6 +25,12 @@ class HangmanAcceptanceTest {
         assertOutputToBe("------\n");
     }
 
+    @Test
+    void showsMatchingLettersInBoard() {
+        enter("s\ne");
+        runApplicationWithArgument("Secret");
+        assertOutputToBe("S-----\nSe--e-\n");
+    }
 
     private void assertOutputToBe(String output) {
         assertThat(stdOut.toString()).isEqualTo(output);

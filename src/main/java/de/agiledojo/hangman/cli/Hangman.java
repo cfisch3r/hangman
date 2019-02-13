@@ -7,7 +7,8 @@ public class Hangman {
 
     public static void main(String[] args) {
         InputReader reader = compose(args[0]);
-        reader.readNextInput();
+        while (reader.readNextInput()) {
+        }
     }
 
     private static InputReader compose(String arg) {

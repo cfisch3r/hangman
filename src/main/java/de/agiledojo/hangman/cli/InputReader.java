@@ -15,15 +15,10 @@ class InputReader {
         reader = createStdInReader();
     }
 
-    boolean readNextInput() {
+    void readNextInput() {
         String line = readLine();
-
-        if (line == null) {
-            return false;
-        }
-
-        hangmanGame.guess(line);
-        return true;
+        if (line != null)
+            hangmanGame.guess(line);
     }
 
     private String readLine() {

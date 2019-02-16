@@ -4,10 +4,10 @@ import de.agiledojo.hangman.game.HangmanGame;
 
 public class Hangman {
 
-
     public static void main(String[] args) {
         InputReader reader = compose(args[0]);
-        while (reader.readNextInput()) {
+        while (true) {
+            reader.readNextInput();
         }
     }
 

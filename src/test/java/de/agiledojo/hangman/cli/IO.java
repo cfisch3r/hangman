@@ -2,6 +2,7 @@ package de.agiledojo.hangman.cli;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,10 +32,6 @@ public class IO {
 
     private IO(ByteArrayOutputStream stdOut) {
         this.stdOut =stdOut;
-    }
-
-    public static void enter(String input) {
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
 
     public void assertOutputToBe(String output) {

@@ -1,12 +1,12 @@
 package de.agiledojo.hangman.cli;
 
 import de.agiledojo.hangman.game.HangmanGame;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static de.agiledojo.hangman.cli.IO.enter;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -15,19 +15,24 @@ import static org.mockito.Mockito.verify;
 class InputReaderIntegrationTest {
     @Mock
     private HangmanGame hangmanGame;
+    private MockStdIn stdIn;
+    private InputReader inputReader;
+
+    @BeforeEach
+    void setUp() {
+        stdIn = MockStdIn.create();
+        inputReader = new InputReader(hangmanGame);
+    }
 
     @Test
     void readsInputAsGuess() {
-        enter("a\n");
-        InputReader inputReader = new InputReader(hangmanGame);
+        stdIn.enter("a");
         inputReader.readNextInput();
         verify(hangmanGame).guess("a");
     }
 
     @Test
     void noGuessWithoutInput() {
-        enter("");
-        InputReader inputReader = new InputReader(hangmanGame);
         inputReader.readNextInput();
         verify(hangmanGame,never()).guess(any());
     }

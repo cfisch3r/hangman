@@ -7,4 +7,9 @@ public class StdOutDisplay implements Display {
     public void showBoard(String board) {
         System.out.println(board);
     }
+
+    @Override
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
 }

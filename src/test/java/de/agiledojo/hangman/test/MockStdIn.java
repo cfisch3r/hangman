@@ -1,4 +1,4 @@
-package de.agiledojo.hangman.cli;
+package de.agiledojo.hangman.test;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +29,6 @@ public class MockStdIn extends InputStream {
     public void enter(String line) {
         line += "\n";
         for (byte b : line.getBytes())
-            bytes.add(Byte.valueOf(b));
+            bytes.add(b);
     }
 }

@@ -1,20 +1,22 @@
 package de.agiledojo.hangman.cli;
 
+import de.agiledojo.hangman.test.MockStdIn;
+import de.agiledojo.hangman.test.OutputListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static de.agiledojo.hangman.cli.IO.startApplicationWithArgument;
+import static de.agiledojo.hangman.test.ApplicationRunner.startApplicationWithArgument;
 
 
 class HangmanAcceptanceTest {
 
 
-    private IO io;
+    private OutputListener outputListener;
     private MockStdIn stdIn;
 
     @BeforeEach
     void setUp() {
-        io = IO.create();
+        outputListener = OutputListener.create();
         stdIn = MockStdIn.create();
     }
 
@@ -22,27 +24,25 @@ class HangmanAcceptanceTest {
     void showsPlaceHoldersWhenWordDoesNotContainProvidedLetter() {
         startApplicationWithArgument("Secret");
         enter("q");
-        io.assertOutputToBe("------\n");
+        outputListener.assertOutputToBe("------\n");
     }
 
     @Test
     void showsMatchingLettersInBoard() {
         startApplicationWithArgument("Secret");
-        enter("s");
-        enter("e");
-        io.assertOutputToBe("S-----\nSe--e-\n");
+        enter("s").enter("e");
+        outputListener.assertOutputToBe("S-----\nSe--e-\n");
     }
 
     @Test
     void showsMessageWhenBoardIsComplete() {
         startApplicationWithArgument("TDD");
-        enter("t");
-        enter("d");
-        io.assertOutputToBe("T--\nTDD\nYou won!\n");
+        enter("t").enter("d");
+        outputListener.assertOutputToBe("T--\nTDD\nYou won!\n");
     }
 
-    private void enter(String s) {
+    private HangmanAcceptanceTest enter(String s) {
         stdIn.enter(s);
+        return this;
     }
-
 }

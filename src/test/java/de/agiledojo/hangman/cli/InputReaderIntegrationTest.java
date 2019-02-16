@@ -1,6 +1,7 @@
 package de.agiledojo.hangman.cli;
 
 import de.agiledojo.hangman.game.HangmanGame;
+import de.agiledojo.hangman.test.MockStdIn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,9 +27,9 @@ class InputReaderIntegrationTest {
 
     @Test
     void readsInputAsGuess() {
-        stdIn.enter("a");
+        stdIn.enter("ö");
         inputReader.readNextInput();
-        verify(hangmanGame).guess("a");
+        verify(hangmanGame).guess("ö");
     }
 
     @Test

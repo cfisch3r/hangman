@@ -1,32 +1,29 @@
 package de.agiledojo.hangman.cli;
 
+import de.agiledojo.hangman.test.OutputListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 class StdOutDisplayIntegrationTest {
 
-    private ByteArrayOutputStream stdOut;
     private StdOutDisplay display;
+    private OutputListener output;
 
     @BeforeEach
     void setUp() {
-        stdOut = IO.initializeStdOut();
+        output = OutputListener.create();
         display = new StdOutDisplay();
     }
 
     @Test
     void showsBoard() {
         display.showBoard("---");
-        assertThat(stdOut.toString()).isEqualTo("---\n");
+        output.assertOutputToBe("---\n");
     }
 
     @Test
     void showsMessage() {
         display.showMessage("You won!");
-        assertThat(stdOut.toString()).isEqualTo("You won!\n");
+        output.assertOutputToBe("You won!\n");
     }
 }

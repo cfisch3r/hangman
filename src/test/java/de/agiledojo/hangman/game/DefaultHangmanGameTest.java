@@ -13,11 +13,15 @@ class DefaultHangmanGameTest {
 
     @Mock
     private Display display;
+
+    @Mock
+    private Context context;
+
     private DefaultHangmanGame game;
 
     @BeforeEach
     void setUp() {
-        game = new DefaultHangmanGame("Secret",display);
+        game = new DefaultHangmanGame("Secret",display,context);
     }
 
     @Test
@@ -53,5 +57,15 @@ class DefaultHangmanGameTest {
         game.guess("r");
         game.guess("t");
         verify(display).showMessage("You won!");
+    }
+
+    @Test
+    void stopsContextWhenBoardIsComplete() {
+        game.guess("s");
+        game.guess("e");
+        game.guess("c");
+        game.guess("r");
+        game.guess("t");
+        verify(context).stop();
     }
 }

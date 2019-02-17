@@ -8,11 +8,13 @@ class DefaultHangmanGame implements HangmanGame {
     private static final String WINNING_MESSAGE = "You won!";
     private final String word;
     private final Display display;
+    private final Context context;
     private String guessedLetters;
 
-    DefaultHangmanGame(String word, Display display) {
+    public DefaultHangmanGame(String word, Display display, Context context) {
         this.word = word;
         this.display = display;
+        this.context = context;
     }
 
     @Override
@@ -20,8 +22,10 @@ class DefaultHangmanGame implements HangmanGame {
         guessedLetters += letter.toLowerCase();
         String board = createBoard();
         display.showBoard(board);
-        if (!board.contains(PLACEHOLDER))
+        if (!board.contains(PLACEHOLDER)) {
             display.showMessage(WINNING_MESSAGE);
+            context.stop();
+        }
     }
 
     private String createBoard() {

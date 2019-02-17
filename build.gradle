@@ -5,6 +5,14 @@ plugins {
 group 'de.agiledojo'
 version '1.0-SNAPSHOT'
 
+jar {
+    manifest {
+        attributes(
+                'Manifest-Version': '1.0',
+                'Main-Class': 'de.agiledojo.hangman.cli.Hangman')
+    }
+}
+
 sourceCompatibility = 1.8
 
 repositories {

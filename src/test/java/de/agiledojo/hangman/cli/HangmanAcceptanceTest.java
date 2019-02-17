@@ -24,25 +24,29 @@ class HangmanAcceptanceTest {
     void showsPlaceHoldersWhenWordDoesNotContainProvidedLetter() {
         startApplicationWithArgument("Secret");
         enter("q");
-        outputListener.assertOutputToBe("------\n");
+        assertOutputToBe("------\n");
     }
 
     @Test
     void showsMatchingLettersInBoard() {
         startApplicationWithArgument("Secret");
         enter("s").enter("e");
-        outputListener.assertOutputToBe("S-----\nSe--e-\n");
+        assertOutputToBe("S-----\nSe--e-\n");
     }
 
     @Test
     void showsMessageWhenBoardIsComplete() {
         startApplicationWithArgument("TDD");
         enter("t").enter("d");
-        outputListener.assertOutputToBe("T--\nTDD\nYou won!\n");
+        assertOutputToBe("T--\nTDD\nYou won!\n");
     }
 
     private HangmanAcceptanceTest enter(String s) {
         stdIn.enter(s);
         return this;
+    }
+
+    private void assertOutputToBe(String expectedOutput) {
+        outputListener.assertOutputToBe(expectedOutput);
     }
 }

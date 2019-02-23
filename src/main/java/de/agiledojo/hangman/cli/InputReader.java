@@ -1,24 +1,19 @@
 package de.agiledojo.hangman.cli;
 
-import de.agiledojo.hangman.game.HangmanGame;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Optional;
 
 class InputReader {
-    private HangmanGame hangmanGame;
     private BufferedReader reader;
 
-    InputReader(HangmanGame hangmanGame) {
-        this.hangmanGame = hangmanGame;
+    InputReader() {
         reader = createStdInReader();
     }
 
-    void readNextInput() {
-        String line = readLine();
-        if (line != null)
-            hangmanGame.guess(line);
+    Optional<String> readNextInput() {
+        return Optional.ofNullable(readLine());
     }
 
     private String readLine() {

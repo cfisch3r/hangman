@@ -1,40 +1,41 @@
 package de.agiledojo.hangman.cli;
 
-import de.agiledojo.hangman.game.HangmanGame;
 import de.agiledojo.hangman.test.MockStdIn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import java.util.Optional;
 
-@ExtendWith(MockitoExtension.class)
+import static org.assertj.core.api.Assertions.assertThat;
+
 class InputReaderIntegrationTest {
-    @Mock
-    private HangmanGame hangmanGame;
     private MockStdIn stdIn;
     private InputReader inputReader;
 
     @BeforeEach
     void setUp() {
         stdIn = MockStdIn.create();
-        inputReader = new InputReader(hangmanGame);
+        inputReader = new InputReader();
     }
 
     @Test
-    void readsInputAsGuess() {
-        stdIn.enter("ö");
-        inputReader.readNextInput();
-        verify(hangmanGame).guess("ö");
+    void noLineWithoutInput() {
+        Optional<String> line = inputReader.readNextInput();
+        assertThat(line).isEmpty();
     }
 
     @Test
-    void noGuessWithoutInput() {
+    void LineWithInput() {
+        stdIn.enter("ö\n");
+        Optional<String> line = inputReader.readNextInput();
+        assertThat(line).hasValue("ö");
+    }
+
+    @Test
+    void multiplesLines() {
+        stdIn.enter("ö\na\n");
         inputReader.readNextInput();
-        verify(hangmanGame,never()).guess(any());
+        Optional<String> line = inputReader.readNextInput();
+        assertThat(line).hasValue("a");
     }
 }

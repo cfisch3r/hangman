@@ -2,9 +2,13 @@ package de.agiledojo.hangman.game;
 
 public interface HangmanGame {
 
-    static HangmanGame create(String word, Display display, Context context) {
-        return new DefaultHangmanGame(word,display,context);
+    enum Result {
+        INCOMPLETE, DONE
     }
 
-    void guess(String letter);
+    static HangmanGame create(String word, Display display) {
+        return new DefaultHangmanGame(word,display);
+    }
+
+    Result guess(String letter);
 }

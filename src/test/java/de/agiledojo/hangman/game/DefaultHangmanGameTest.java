@@ -1,11 +1,15 @@
 package de.agiledojo.hangman.game;
 
+import de.agiledojo.hangman.game.HangmanGame.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static de.agiledojo.hangman.game.HangmanGame.Result.DONE;
+import static de.agiledojo.hangman.game.HangmanGame.Result.INCOMPLETE;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -14,14 +18,11 @@ class DefaultHangmanGameTest {
     @Mock
     private Display display;
 
-    @Mock
-    private Context context;
-
     private DefaultHangmanGame game;
 
     @BeforeEach
     void setUp() {
-        game = new DefaultHangmanGame("Secret",display,context);
+        game = new DefaultHangmanGame("Secret",display);
     }
 
     @Test
@@ -60,12 +61,19 @@ class DefaultHangmanGameTest {
     }
 
     @Test
-    void stopsContextWhenBoardIsComplete() {
+    void gameIsOverWhenAllLettersAreGuessed() {
         game.guess("s");
         game.guess("e");
         game.guess("c");
         game.guess("r");
-        game.guess("t");
-        verify(context).stop();
+        Result result = game.guess("t");
+        assertThat(result).isEqualTo(DONE);
     }
+
+    @Test
+    void gameIsIncompleteWhenNotAllLettersAreFound() {
+        Result result = game.guess("e");
+        assertThat(result).isEqualTo(INCOMPLETE);
+    }
+
 }

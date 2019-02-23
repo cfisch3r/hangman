@@ -8,24 +8,21 @@ class DefaultHangmanGame implements HangmanGame {
     private static final String WINNING_MESSAGE = "You won!";
     private final String word;
     private final Display display;
-    private final Context context;
     private String guessedLetters;
 
-    public DefaultHangmanGame(String word, Display display, Context context) {
+    DefaultHangmanGame(String word, Display display) {
         this.word = word;
         this.display = display;
-        this.context = context;
     }
 
     @Override
-    public void guess(String letter) {
+    public Result guess(String letter) {
         guessedLetters += letter.toLowerCase();
         String board = createBoard();
         display.showBoard(board);
-        if (!board.contains(PLACEHOLDER)) {
-            display.showMessage(WINNING_MESSAGE);
-            context.stop();
-        }
+        if (!board.contains(PLACEHOLDER)) display.showMessage(WINNING_MESSAGE);
+
+        return board.contains(PLACEHOLDER)? Result.INCOMPLETE : Result.DONE;
     }
 
     private String createBoard() {

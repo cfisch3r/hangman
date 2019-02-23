@@ -1,37 +1,37 @@
 package de.agiledojo.hangman.cli;
 
-import de.agiledojo.hangman.game.Context;
 import de.agiledojo.hangman.game.HangmanGame;
+import de.agiledojo.hangman.game.HangmanGame.Result;
 
-public class Hangman implements Context {
+import java.util.Optional;
+
+import static de.agiledojo.hangman.game.HangmanGame.Result.DONE;
+
+public class Hangman {
 
 
     private final InputReader reader;
-    private boolean completed = false;
+    private final HangmanGame game;
 
     public static void main(String[] args) {
         Hangman hangman = new Hangman(args[0]);
         hangman.run();
     }
 
-    public Hangman(String word) {
-        reader = compose(word,this);
-    }
-
-    private static InputReader compose(String arg, Hangman hangman) {
+    private Hangman(String word) {
         StdOutDisplay display = new StdOutDisplay();
-        HangmanGame game = HangmanGame.create(arg,display,hangman);
-        return new InputReader(game);
+        game = HangmanGame.create(word,display);
+        reader = new InputReader();
     }
 
     private void run() {
-        while (!completed) {
-            reader.readNextInput();
-        }
+        Result result = null;
+        do {
+            Optional<String> line = reader.readNextInput();
+            if (line.isPresent()) {
+                result = game.guess(line.get());
+            }
+        } while (result != DONE);
     }
 
-    @Override
-    public void stop() {
-        completed = true;
-    }
 }

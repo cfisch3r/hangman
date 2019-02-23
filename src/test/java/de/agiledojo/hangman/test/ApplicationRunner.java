@@ -6,27 +6,37 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class ApplicationRunner {
 
     public static class ApplicationStatus {
 
-        private Future<?> future;
+        private boolean finished;
 
-        private ApplicationStatus(Future<?> future) {
-            this.future = future;
+        private synchronized void setToFinished() {
+            finished = true;
+            this.notifyAll();
         }
 
-        public boolean isDone() {
-            return future.isDone();
+
+        public void assertToBeEventuallyFinished(int timeout) {
+            TimeOutTimer timer = new TimeOutTimer();
+            while (!finished) {
+                if (!timer.isRunning)
+                    fail("not finished");
+                timer.waitFor(this,timeout);
+            }
         }
     }
 
     public static ApplicationStatus startApplicationWithArgument(String argument) {
+        ApplicationStatus applicationStatus = new ApplicationStatus();
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<?> future = executor.submit(() -> {
             Hangman.main(new String[]{argument});
-            return 0;
+            applicationStatus.setToFinished();
         });
-        return new ApplicationStatus(future);
+        return applicationStatus;
     }
 }

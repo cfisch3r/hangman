@@ -44,11 +44,10 @@ class HangmanAcceptanceTest {
     }
 
     @Test
-    void stopsWhenBoardIsComplete() throws InterruptedException {
+    void stopsWhenBoardIsComplete(){
         ApplicationStatus applicationStatus = startApplicationWithArgument("TDD");
         enter("t").enter("d");
-        Thread.sleep(100);
-        assertThat(applicationStatus.isDone()).isTrue();
+        applicationStatus.assertToBeEventuallyFinished(1000);
     }
 
     private HangmanAcceptanceTest enter(String s) {

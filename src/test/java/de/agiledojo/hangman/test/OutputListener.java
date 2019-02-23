@@ -2,27 +2,10 @@ package de.agiledojo.hangman.test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static org.assertj.core.api.Assertions.fail;
 
 public class OutputListener {
-
-    private class TimeOutTimer {
-        private boolean isRunning = true;
-
-        private void start(int timeout) {
-            Timer timer = new Timer("timeout");
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    isRunning = false;
-                }
-            }, timeout);
-        }
-
-    }
 
     private final ByteArrayOutputStream stdOut;
 

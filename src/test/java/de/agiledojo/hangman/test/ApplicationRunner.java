@@ -20,7 +20,7 @@ public class ApplicationRunner {
         }
 
 
-        public void assertToBeEventuallyFinished(int timeout) {
+        public void assertToBeFinishedWithin(int timeout) {
             TimeOutTimer timer = new TimeOutTimer();
             while (!finished) {
                 if (!timer.isRunning)

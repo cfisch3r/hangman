@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static de.agiledojo.hangman.test.ApplicationRunner.startApplicationWithArgument;
-import static org.assertj.core.api.Assertions.assertThat;
 
 
 class HangmanAcceptanceTest {
@@ -47,7 +46,7 @@ class HangmanAcceptanceTest {
     void stopsWhenBoardIsComplete(){
         ApplicationStatus applicationStatus = startApplicationWithArgument("TDD");
         enter("t").enter("d");
-        applicationStatus.assertToBeEventuallyFinished(1000);
+        applicationStatus.assertToBeFinishedWithin(1000);
     }
 
     private HangmanAcceptanceTest enter(String s) {

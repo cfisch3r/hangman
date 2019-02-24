@@ -12,7 +12,7 @@ class InputReader {
         reader = createStdInReader();
     }
 
-    Optional<String> readNextInput() {
+    Optional<String> nextLine() {
         return Optional.ofNullable(readLine());
     }
 

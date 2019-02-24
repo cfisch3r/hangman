@@ -26,10 +26,10 @@ class DefaultHangmanGame implements HangmanGame {
     }
 
     private String createBoard() {
-        return word.chars().mapToObj(ev()).collect(Collectors.joining());
+        return word.chars().mapToObj(characterToBoardDigit()).collect(Collectors.joining());
     }
 
-    private IntFunction<String> ev() {
+    private IntFunction<String> characterToBoardDigit() {
         return character -> {
             String letter = String.valueOf((char) character);
             return guessedLetters.contains(letter.toLowerCase())? letter : PLACEHOLDER;

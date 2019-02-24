@@ -19,23 +19,23 @@ class InputReaderIntegrationTest {
     }
 
     @Test
-    void noLineWithoutInput() {
-        Optional<String> line = inputReader.readNextInput();
+    void readsNoLineWithoutInput() {
+        Optional<String> line = inputReader.nextLine();
         assertThat(line).isEmpty();
     }
 
     @Test
-    void LineWithInput() {
+    void readsLineFromInput() {
         stdIn.enter("ö\n");
-        Optional<String> line = inputReader.readNextInput();
+        Optional<String> line = inputReader.nextLine();
         assertThat(line).hasValue("ö");
     }
 
     @Test
-    void multiplesLines() {
+    void readsIncrementallyMultipleLines() {
         stdIn.enter("ö\na\n");
-        inputReader.readNextInput();
-        Optional<String> line = inputReader.readNextInput();
+        inputReader.nextLine();
+        Optional<String> line = inputReader.nextLine();
         assertThat(line).hasValue("a");
     }
 }

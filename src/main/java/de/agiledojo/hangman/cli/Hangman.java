@@ -29,7 +29,7 @@ public class Hangman {
     }
 
     private void nextTurn() {
-        reader.readNextInput().ifPresent(line -> lastGuessResult = game.guess(line));
+        reader.nextLine().ifPresent(line -> lastGuessResult = game.guess(line));
     }
 
 

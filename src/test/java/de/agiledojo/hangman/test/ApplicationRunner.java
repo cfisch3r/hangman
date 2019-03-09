@@ -33,7 +33,11 @@ public class ApplicationRunner {
         ApplicationStatus applicationStatus = new ApplicationStatus();
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<?> future = executor.submit(() -> {
-           main.accept(new String[]{argument});
+            try {
+                main.accept(new String[]{argument});
+            } catch (RuntimeException e) {
+                System.out.println(e);
+            }
            applicationStatus.setToFinished();
         });
         return applicationStatus;

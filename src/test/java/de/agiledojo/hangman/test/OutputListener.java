@@ -43,7 +43,7 @@ public class OutputListener {
 
     private TimeOutTimer startTimeOut() {
         TimeOutTimer timer = new TimeOutTimer();
-        timer.start(100);
+        timer.start(1000);
         return timer;
     }
 

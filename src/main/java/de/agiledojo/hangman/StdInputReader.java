@@ -13,7 +13,9 @@ public class StdInputReader {
 
     public void read() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        game.guess(read(reader));
+        String input = read(reader);
+        if (input != null)
+            game.guess(input);
     }
 
     private String read(BufferedReader reader) {

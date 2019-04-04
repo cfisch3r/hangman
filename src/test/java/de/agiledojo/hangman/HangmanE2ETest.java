@@ -5,9 +5,10 @@ import de.agiledojo.hangman.test.MockStdIn;
 import de.agiledojo.hangman.test.OutputListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("The Hangman Game should ...")
+@DisplayName("Given a running Hangman Game")
 public class HangmanE2ETest {
 
     private MockStdIn mockStdIn;
@@ -17,31 +18,51 @@ public class HangmanE2ETest {
     void setUpTestFixture() {
         mockStdIn();
         mockStdOut();
-    }
-
-    @Test
-    @DisplayName("shows a board with placeholders, when input does not match.")
-    void boardHasOnlyPlaceHolderWhenInputDoesNotMatch() {
         startApplicationWithArgument("Secret");
-        enter("s");
-        outputShouldContain("S-----\n");
-        enter("e");
-        outputShouldContain("Se--e-\n");
-        enter("x");
-        outputShouldContain("Se--e-\n");
-        enter("c");
-        outputShouldContain("Sec-e-\n");
-        enter("r");
-        outputShouldContain("Secre-\n");
-        enter("t");
-        outputShouldContain("Secret\n");
-        outputShouldContain("You won!\n");
-        outputShouldContain("1 Failure(s)\n");
     }
 
-    private void outputShouldBe(String output) {
-        outputListener.assertOutputToBe(output);
+    @Nested
+    class WhenEnteringGuesses {
+        @BeforeEach
+        void setUp() {
+            enter("s");
+            enter("x");
+            enter("e");
+        }
+
+        @Test
+        void thenTheBoardShowsTheCurrentStatus() {
+            outputShouldContain(
+                    "S-----\n" +
+                            "S-----\n" +
+                            "Se--e-\n");
+        }
     }
+
+    @Nested
+    class WhenPlayingtheCompleteGame {
+
+        @BeforeEach
+        void setUp() {
+            enter("s");
+            enter("e");
+            enter("x");
+            enter("c");
+            enter("r");
+            enter("t");
+        }
+
+        @Test
+        void thenASuccessMessageIsShown() {
+            outputShouldContain("You won!\n");
+        }
+
+        @Test
+        void thenFailuresAreShown() {
+            outputShouldContain("1 Failure(s)\n");
+        }
+    }
+
 
     private void outputShouldContain(String output) {
         outputListener.assertOutputToContain(output);

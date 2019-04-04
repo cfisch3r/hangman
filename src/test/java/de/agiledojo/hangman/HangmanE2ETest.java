@@ -3,12 +3,10 @@ package de.agiledojo.hangman;
 import de.agiledojo.hangman.test.ApplicationRunner;
 import de.agiledojo.hangman.test.MockStdIn;
 import de.agiledojo.hangman.test.OutputListener;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 @DisplayName("Given a running Hangman Game")
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class HangmanE2ETest {
 
     private MockStdIn mockStdIn;
@@ -22,7 +20,7 @@ class HangmanE2ETest {
     }
 
     @Nested
-    class WhenEnteringGuesses {
+    class When_entering_guesses {
         @BeforeEach
         void setUp() {
             enter("s");
@@ -31,7 +29,7 @@ class HangmanE2ETest {
         }
 
         @Test
-        void thenTheBoardShowsTheCurrentStatus() {
+        void then_the_Board_shows_the_current_status() {
             outputShouldContain("S-----\n");
             outputShouldContain("S-----\n");
             outputShouldContain("Se--e-\n");
@@ -39,7 +37,7 @@ class HangmanE2ETest {
     }
 
     @Nested
-    class WhenPlayingtheCompleteGame {
+    class When_finishing_the_Game {
 
         @BeforeEach
         void setUp() {
@@ -52,12 +50,12 @@ class HangmanE2ETest {
         }
 
         @Test
-        void thenASuccessMessageIsShown() {
+        void then_a_success_message_is_shown() {
             outputShouldContain("You won!\n");
         }
 
         @Test
-        void thenFailuresAreShown() {
+        void then_a_failure_statistic_is_shown() {
             outputShouldContain("1 Failure(s)\n");
         }
     }

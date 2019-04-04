@@ -9,7 +9,7 @@ jar {
     manifest {
         attributes(
                 'Manifest-Version': '1.0',
-                'Main-Class': 'de.agiledojo.hangman.cli.Hangman')
+                'Main-Class': 'de.agiledojo.hangman.Hangman')
     }
 }
 

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Given a running Hangman Game")
-public class HangmanE2ETest {
+class HangmanE2ETest {
 
     private MockStdIn mockStdIn;
     private OutputListener outputListener;
@@ -32,10 +32,9 @@ public class HangmanE2ETest {
 
         @Test
         void thenTheBoardShowsTheCurrentStatus() {
-            outputShouldContain(
-                    "S-----\n" +
-                            "S-----\n" +
-                            "Se--e-\n");
+            outputShouldContain("S-----\n");
+            outputShouldContain("S-----\n");
+            outputShouldContain("Se--e-\n");
         }
     }
 

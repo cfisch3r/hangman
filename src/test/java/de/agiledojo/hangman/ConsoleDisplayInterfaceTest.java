@@ -1,15 +1,35 @@
 package de.agiledojo.hangman;
 
 import de.agiledojo.hangman.test.OutputListener;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ConsoleDisplayInterfaceTest {
 
+    private OutputListener outputListener;
+    private ConsoleDisplay display;
+
+    @BeforeEach
+    void setUp() {
+        outputListener = OutputListener.create();
+        display = new ConsoleDisplay();
+    }
+
     @Test
-    void showsBoardOnStdOut() {
-        OutputListener outputListener = OutputListener.create();
-        ConsoleDisplay display = new ConsoleDisplay();
+    void showsBoard() {
         display.show("xxxx");
         outputListener.assertOutputToBe("xxxx\n");
+    }
+
+    @Test
+    void showsResult() {
+        display.showResult("xxxx");
+        outputListener.assertOutputToBe("xxxx\n");
+    }
+
+    @Test
+    void showsFailures() {
+        display.showFailures(2);
+        outputListener.assertOutputToBe("2 Failure(s)\n");
     }
 }

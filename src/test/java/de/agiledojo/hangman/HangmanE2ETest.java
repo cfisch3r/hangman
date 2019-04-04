@@ -23,12 +23,28 @@ public class HangmanE2ETest {
     @DisplayName("shows a board with placeholders, when input does not match.")
     void boardHasOnlyPlaceHolderWhenInputDoesNotMatch() {
         startApplicationWithArgument("Secret");
-        enter("ö");
-        outputShouldBe("------\n");
+        enter("s");
+        outputShouldContain("S-----\n");
+        enter("e");
+        outputShouldContain("Se--e-\n");
+        enter("x");
+        outputShouldContain("Se--e-\n");
+        enter("c");
+        outputShouldContain("Sec-e-\n");
+        enter("r");
+        outputShouldContain("Secre-\n");
+        enter("t");
+        outputShouldContain("Secret\n");
+        outputShouldContain("You won!\n");
+        outputShouldContain("1 Failure(s)\n");
     }
 
     private void outputShouldBe(String output) {
         outputListener.assertOutputToBe(output);
+    }
+
+    private void outputShouldContain(String output) {
+        outputListener.assertOutputToContain(output);
     }
 
     private void enter(String line) {

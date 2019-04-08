@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 
@@ -57,7 +58,7 @@ public class HangmanGameSpec {
         guess("c");
         guess("r");
         guess("t");
-        verify(display).showResult("You won!");
+        verify(display).showResult(anyLong());
     }
 
     @Test
@@ -69,8 +70,7 @@ public class HangmanGameSpec {
         guess("x");
         guess("q");
         guess("t");
-        verify(display).showResult(any());
-        verify(display).showFailures(2L);
+        verify(display).showResult(2L);
     }
 
     private void guess(String input) {

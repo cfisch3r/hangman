@@ -7,15 +7,11 @@ public class ConsoleDisplay implements Display{
     }
 
     @Override
-    public void showResult(String message) {
-        print(message);
-    }
-
-
-    @Override
-    public void showFailures(long numberOfFailures) {
+    public void showResult(long numberOfFailures) {
+        print("You won!");
         print(String.format("%d Failure(s)",numberOfFailures));
     }
+
 
     private void print(String message) {
         System.out.println(message);

@@ -21,10 +21,8 @@ public class DefaultHangmanGame implements HangmanGame{
         addInput(input);
         String board = createBoard();
         display.show(board);
-        if (gameIsFinished(board)) {
-            display.showResult("You won!");
-            display.showFailures(failures());
-        }
+        if (gameIsFinished(board))
+            display.showResult(failures());
     }
 
     private boolean gameIsFinished(String board) {

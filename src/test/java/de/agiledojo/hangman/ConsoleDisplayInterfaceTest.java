@@ -23,13 +23,7 @@ public class ConsoleDisplayInterfaceTest {
 
     @Test
     void showsResult() {
-        display.showResult("xxxx");
-        outputListener.assertOutputToBe("xxxx\n");
-    }
-
-    @Test
-    void showsFailures() {
-        display.showFailures(2);
-        outputListener.assertOutputToBe("2 Failure(s)\n");
+        display.showResult(2);
+        outputListener.assertOutputToBe("You won!\n2 Failure(s)\n");
     }
 }

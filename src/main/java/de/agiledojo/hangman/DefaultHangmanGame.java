@@ -25,6 +25,11 @@ public class DefaultHangmanGame implements HangmanGame{
             display.showResult(failures());
     }
 
+    @Override
+    public boolean isIncomplete() {
+        return secret.toLowerCase().chars().filter((c) -> !inputs.contains(String.valueOf((char) c))).count() > 0;
+    }
+
     private boolean gameIsFinished(String board) {
         return !board.contains(PLACEHOLDER_LETTER);
     }

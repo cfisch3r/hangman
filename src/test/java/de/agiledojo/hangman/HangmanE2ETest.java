@@ -1,6 +1,7 @@
 package de.agiledojo.hangman;
 
 import de.agiledojo.hangman.test.ApplicationRunner;
+import de.agiledojo.hangman.test.ApplicationRunner.ApplicationStatus;
 import de.agiledojo.hangman.test.MockStdIn;
 import de.agiledojo.hangman.test.OutputListener;
 import org.junit.jupiter.api.*;
@@ -11,6 +12,7 @@ class HangmanE2ETest {
 
     private MockStdIn mockStdIn;
     private OutputListener outputListener;
+    private ApplicationStatus applicationStatus;
 
     @BeforeEach
     void setUpTestFixture() {
@@ -58,6 +60,11 @@ class HangmanE2ETest {
         void then_a_failure_statistic_is_shown() {
             outputShouldContain("1 Failure(s)\n");
         }
+
+        @Test
+        void then_application_exits() {
+            applicationStatus.assertToBeFinishedWithin(100);
+        }
     }
 
 
@@ -70,7 +77,7 @@ class HangmanE2ETest {
     }
 
     private void startApplicationWithArgument(String secret) {
-        ApplicationRunner.startApplicationWithArgument(Hangman::main, secret);
+        applicationStatus = ApplicationRunner.startApplicationWithArgument(Hangman::main, secret);
     }
 
     private void mockStdOut() {

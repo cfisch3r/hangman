@@ -7,6 +7,7 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.inOrder;
@@ -59,6 +60,16 @@ public class HangmanGameSpec {
         guess("r");
         guess("t");
         verify(display).showResult(anyLong());
+    }
+
+    @Test
+    void isCompleteWhenAllCharactersAreFound() {
+        guess("s");
+        guess("e");
+        guess("c");
+        guess("r");
+        guess("t");
+        assertThat(game.isIncomplete()).isFalse();
     }
 
     @Test

@@ -1,19 +1,16 @@
 package de.agiledojo.hangman;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class DefaultHangmanGame implements HangmanGame{
     private static final String PLACEHOLDER_LETTER = "-";
     private final String secret;
     private final Display display;
-    private final List<String> inputs;
+    private StringBuilder inputs = new StringBuilder();
 
     public DefaultHangmanGame(String secret, Display display) {
         this.secret = secret;
         this.display = display;
-        inputs = new ArrayList<>();
     }
 
     @Override
@@ -21,25 +18,31 @@ public class DefaultHangmanGame implements HangmanGame{
         addInput(input);
         String board = createBoard();
         display.show(board);
-        if (gameIsFinished(board))
+        if (!isIncomplete())
             display.showResult(failures());
     }
 
     @Override
     public boolean isIncomplete() {
-        return secret.toLowerCase().chars().filter((c) -> !inputs.contains(String.valueOf((char) c))).count() > 0;
-    }
-
-    private boolean gameIsFinished(String board) {
-        return !board.contains(PLACEHOLDER_LETTER);
+        return numberOfDifferentLetters(secret, inputs.toString()) > 0;
     }
 
     private void addInput(String input) {
-        inputs.add(input.toLowerCase());
+        inputs.append(input);
     }
 
     private long failures() {
-        return inputs.stream().filter(((i) -> !secret.toLowerCase().contains(i))).count();
+        return numberOfDifferentLetters(inputs.toString(), secret);
+    }
+
+    private long numberOfDifferentLetters(String a, String b) {
+        return a.toLowerCase().chars()
+                .filter(((c) -> !b.toLowerCase().contains(letter(c))))
+                .count();
+    }
+
+    private String letter(int c) {
+        return String.valueOf((char) c);
     }
 
     private String createBoard() {
@@ -47,8 +50,8 @@ public class DefaultHangmanGame implements HangmanGame{
     }
 
     private String mapToBoardSymbol(int character) {
-        String letter = String.valueOf((char) character);
-        return inputs.contains(letter.toLowerCase())? letter : PLACEHOLDER_LETTER;
+        String letter = letter(character);
+        return inputs.toString().toLowerCase().contains(letter.toLowerCase())? letter : PLACEHOLDER_LETTER;
     }
 
 }

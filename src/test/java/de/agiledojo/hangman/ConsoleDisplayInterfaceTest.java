@@ -26,4 +26,10 @@ public class ConsoleDisplayInterfaceTest {
         display.showResult(2);
         outputListener.assertOutputToBe("You won!\n2 Failure(s)\n");
     }
+
+    @Test
+    void showsError() {
+        display.showError("Ein Fehler");
+        outputListener.assertOutputToBe("Error: Ein Fehler\n");
+    }
 }

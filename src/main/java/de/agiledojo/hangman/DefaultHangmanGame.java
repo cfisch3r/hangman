@@ -15,7 +15,13 @@ public class DefaultHangmanGame implements HangmanGame{
 
     @Override
     public void guess(String input) {
-        addInput(input);
+        if (input.length() > 1) {
+            display.showError("Only single letters are allowed.");
+        } else if (input.length() == 0) {
+            display.showError("You must enter a letter.");
+        } else
+            addInput(input);
+
         String board = createBoard();
         display.show(board);
         if (!isIncomplete())

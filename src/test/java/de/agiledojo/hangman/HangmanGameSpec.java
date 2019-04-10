@@ -84,6 +84,24 @@ public class HangmanGameSpec {
         verify(display).showResult(2L);
     }
 
+    @Test
+    void showsErrorWhenInputIsNotASingleLetter() {
+        guess("ab");
+        verify(display).showError("Only single letters are allowed.");
+    }
+
+    @Test
+    void showsErrorWhenInputIsEmpty() {
+        guess("");
+        verify(display).showError("You must enter a letter.");
+    }
+
+    @Test
+    void ignoresInvalidInput() {
+        guess("se");
+        verify(display).show("------");
+    }
+
     private void guess(String input) {
         game.guess(input);
     }

@@ -62,11 +62,24 @@ class HangmanE2ETest {
         }
 
         @Test
-        void then_application_exits() {
+        void then_the_application_exits() {
             applicationStatus.assertToBeFinishedWithin(100);
         }
     }
 
+
+    @Nested
+    class When_entering_invalid_inputs {
+        @BeforeEach
+        void setUp() {
+            enter("abc");
+        }
+
+        @Test
+        void then_an_error_message_is_shown() {
+            outputShouldContain("Error: Only single letters are allowed.\n");
+        }
+    }
 
     private void outputShouldContain(String output) {
         outputListener.assertOutputToContain(output);

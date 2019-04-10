@@ -6,7 +6,7 @@ public class DefaultHangmanGame implements HangmanGame{
     private static final String PLACEHOLDER_LETTER = "-";
     private final String secret;
     private final Display display;
-    private StringBuilder inputs = new StringBuilder();
+    private String inputs = "";
 
     public DefaultHangmanGame(String secret, Display display) {
         this.secret = secret;
@@ -24,15 +24,15 @@ public class DefaultHangmanGame implements HangmanGame{
 
     @Override
     public boolean isIncomplete() {
-        return numberOfDifferentLetters(secret, inputs.toString()) > 0;
+        return numberOfDifferentLetters(secret, inputs) > 0;
     }
 
     private void addInput(String input) {
-        inputs.append(input);
+        inputs += input;
     }
 
     private long failures() {
-        return numberOfDifferentLetters(inputs.toString(), secret);
+        return numberOfDifferentLetters(inputs, secret);
     }
 
     private long numberOfDifferentLetters(String a, String b) {
@@ -51,7 +51,7 @@ public class DefaultHangmanGame implements HangmanGame{
 
     private String mapToBoardSymbol(int character) {
         String letter = letter(character);
-        return inputs.toString().toLowerCase().contains(letter.toLowerCase())? letter : PLACEHOLDER_LETTER;
+        return inputs.toLowerCase().contains(letter.toLowerCase())? letter : PLACEHOLDER_LETTER;
     }
 
 }

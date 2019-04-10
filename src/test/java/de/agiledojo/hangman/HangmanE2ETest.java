@@ -26,13 +26,11 @@ class HangmanE2ETest {
         @BeforeEach
         void setUp() {
             enter("s");
-            enter("x");
             enter("e");
         }
 
         @Test
         void then_the_Board_shows_the_current_status() {
-            outputShouldContain("S-----\n");
             outputShouldContain("S-----\n");
             outputShouldContain("Se--e-\n");
         }

@@ -69,7 +69,7 @@ public class HangmanGameSpec {
         guess("c");
         guess("r");
         guess("t");
-        assertThat(game.isIncomplete()).isFalse();
+        assertThat(game.isComplete()).isTrue();
     }
 
     @Test

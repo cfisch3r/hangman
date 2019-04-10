@@ -1,32 +1,28 @@
 package de.agiledojo.hangman;
 
-import java.util.stream.Collectors;
-
 public class DefaultHangmanGame implements HangmanGame{
-    private static final String PLACEHOLDER_LETTER = "-";
     private final String secret;
     private final Display display;
     private String inputs = "";
+    private final Board board;
 
     public DefaultHangmanGame(String secret, Display display) {
         this.secret = secret;
         this.display = display;
+        board = new Board(secret,display);
     }
 
     @Override
     public void guess(String input) {
         processInput(input);
-        String board = createBoard();
-        display.show(board);
-        if (!isIncomplete())
+        board.show(inputs);
+        if (isComplete())
             display.showResult(failures());
     }
 
-
-
     @Override
-    public boolean isIncomplete() {
-        return numberOfDifferentLetters(secret, inputs) > 0;
+    public boolean isComplete() {
+        return numberOfDifferentLetters(secret, inputs) == 0;
     }
 
     private void processInput(String input) {
@@ -45,21 +41,8 @@ public class DefaultHangmanGame implements HangmanGame{
 
     private long numberOfDifferentLetters(String a, String b) {
         return a.toLowerCase().chars()
-                .filter(((c) -> !b.toLowerCase().contains(letter(c))))
+                .filter(((c) -> !b.toLowerCase().contains(String.valueOf((char) c))))
                 .count();
-    }
-
-    private String letter(int c) {
-        return String.valueOf((char) c);
-    }
-
-    private String createBoard() {
-        return secret.chars().mapToObj(this::mapToBoardSymbol).collect(Collectors.joining());
-    }
-
-    private String mapToBoardSymbol(int character) {
-        String letter = letter(character);
-        return inputs.toLowerCase().contains(letter.toLowerCase())? letter : PLACEHOLDER_LETTER;
     }
 
 }

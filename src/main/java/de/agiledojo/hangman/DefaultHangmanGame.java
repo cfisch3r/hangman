@@ -15,26 +15,28 @@ public class DefaultHangmanGame implements HangmanGame{
 
     @Override
     public void guess(String input) {
-        if (input.length() > 1) {
-            display.showError("Only single letters are allowed.");
-        } else if (input.length() == 0) {
-            display.showError("You must enter a letter.");
-        } else
-            addInput(input);
-
+        processInput(input);
         String board = createBoard();
         display.show(board);
         if (!isIncomplete())
             display.showResult(failures());
     }
 
+
+
     @Override
     public boolean isIncomplete() {
         return numberOfDifferentLetters(secret, inputs) > 0;
     }
 
-    private void addInput(String input) {
-        inputs += input;
+    private void processInput(String input) {
+        if (input.length() > 1) {
+            display.showError("Only single letters are allowed.");
+        } else if (input.length() == 0) {
+            display.showError("You must enter a letter.");
+        } else {
+          inputs += input;
+        }
     }
 
     private long failures() {

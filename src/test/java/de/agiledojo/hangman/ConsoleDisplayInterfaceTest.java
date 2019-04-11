@@ -1,5 +1,6 @@
 package de.agiledojo.hangman;
 
+import de.agiledojo.hangman.test.MockStdIn;
 import de.agiledojo.hangman.test.OutputListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,18 +19,28 @@ public class ConsoleDisplayInterfaceTest {
     @Test
     void showsBoard() {
         display.show("xxxx");
-        outputListener.assertOutputToBe("xxxx\n");
+        assertOutputToBe("xxxx" + lbr());
     }
 
     @Test
     void showsResult() {
         display.showResult(2);
-        outputListener.assertOutputToBe("You won!\n2 Failure(s)\n");
+        assertOutputToBe("You won!" + lbr() + "2 Failure(s)" +lbr());
     }
 
     @Test
     void showsError() {
         display.showError("Ein Fehler");
-        outputListener.assertOutputToBe("Error: Ein Fehler\n");
+        assertOutputToBe("Error: Ein Fehler" + lbr());
     }
+
+    private void assertOutputToBe(String text) {
+        outputListener.assertOutputToBe(text);
+    }
+
+    private String lbr() {
+        return MockStdIn.lineBreak();
+    }
+
+
 }

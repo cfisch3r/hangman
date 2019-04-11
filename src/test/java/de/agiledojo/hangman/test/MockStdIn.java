@@ -16,6 +16,10 @@ public class MockStdIn extends InputStream {
         return mockStdIn;
     }
 
+    public static String lineBreak() {
+        return System.getProperty("line.separator");
+    }
+
     private MockStdIn() {
         bytes = new ConcurrentLinkedQueue<>();
     }

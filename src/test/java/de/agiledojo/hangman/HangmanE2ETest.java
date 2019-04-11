@@ -31,8 +31,8 @@ class HangmanE2ETest {
 
         @Test
         void then_the_Board_shows_the_current_status() {
-            outputShouldContain("S-----\n");
-            outputShouldContain("Se--e-\n");
+            outputShouldContain(line("S-----"));
+            outputShouldContain(line("Se--e-"));
         }
     }
 
@@ -51,34 +51,34 @@ class HangmanE2ETest {
 
         @Test
         void then_a_success_message_is_shown() {
-            outputShouldContain("You won!\n");
+            outputShouldContain(line("You won!"));
         }
 
         @Test
         void then_a_failure_statistic_is_shown() {
-            outputShouldContain("1 Failure(s)\n");
+            outputShouldContain(line("1 Failure(s)"));
         }
 
         @Test
         void then_the_application_exits() {
             applicationStatus.assertToBeFinishedWithin(100);
         }
-    }
 
+    }
 
     @Nested
     class When_entering_invalid_inputs {
+
         @BeforeEach
         void setUp() {
             enter("abc");
         }
-
         @Test
         void then_an_error_message_is_shown() {
-            outputShouldContain("Error: Only single letters are allowed.\n");
+            outputShouldContain(line("Error: Only single letters are allowed."));
         }
-    }
 
+    }
     private void outputShouldContain(String output) {
         outputListener.assertOutputToContain(output);
     }
@@ -97,5 +97,9 @@ class HangmanE2ETest {
 
     private void mockStdIn() {
         mockStdIn = MockStdIn.create();
+    }
+
+    private String line(String text) {
+        return text + MockStdIn.lineBreak();
     }
 }

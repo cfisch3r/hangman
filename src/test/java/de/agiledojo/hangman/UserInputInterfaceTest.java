@@ -1,5 +1,6 @@
 package de.agiledojo.hangman;
 
+import de.agiledojo.hangman.test.InterfaceSpecification;
 import de.agiledojo.hangman.test.MockStdIn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@InterfaceSpecification("User Input Interface")
 public class UserInputInterfaceTest {
 
     @Mock

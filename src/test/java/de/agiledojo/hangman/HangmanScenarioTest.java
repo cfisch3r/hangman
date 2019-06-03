@@ -3,10 +3,12 @@ package de.agiledojo.hangman;
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.junit5.JGivenExtension;
 import de.agiledojo.hangman.test.HangmanApplicationScenario;
+import de.agiledojo.hangman.test.OverviewSpecification;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith( JGivenExtension.class )
+@OverviewSpecification
 class HangmanScenarioTest {
 
     @ScenarioStage

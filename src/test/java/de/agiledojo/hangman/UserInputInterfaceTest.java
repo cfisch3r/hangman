@@ -1,5 +1,6 @@
 package de.agiledojo.hangman;
 
+import com.tngtech.jgiven.junit5.JGivenExtension;
 import de.agiledojo.hangman.test.InterfaceSpecification;
 import de.agiledojo.hangman.test.MockStdIn;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(JGivenExtension.class)
 @InterfaceSpecification("User Input Interface")
 public class UserInputInterfaceTest {
 

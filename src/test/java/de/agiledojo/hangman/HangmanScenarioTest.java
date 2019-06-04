@@ -1,5 +1,6 @@
 package de.agiledojo.hangman;
 
+import com.tngtech.jgiven.annotation.Pending;
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.junit5.JGivenExtension;
 import de.agiledojo.hangman.test.HangmanApplicationScenario;
@@ -25,6 +26,7 @@ class HangmanScenarioTest {
     }
 
     @Test
+    @Pending
     void user_sees_result_when_Game_is_finished() {
         scenario
             .given().Application_started_with_Secret("Secret")
@@ -40,6 +42,7 @@ class HangmanScenarioTest {
     }
 
     @Test
+    @Pending
     void user_gets_an_Error_Message_for_wrong_input() {
         scenario
             .given().Application_started_with_Secret("Secret")

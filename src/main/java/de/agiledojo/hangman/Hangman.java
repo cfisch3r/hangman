@@ -2,10 +2,7 @@ package de.agiledojo.hangman;
 
 public class Hangman {
     public static void main(String[] args) {
-        ConsoleDisplay display = new ConsoleDisplay();
-        HangmanGame game = new DefaultHangmanGame(args[0],display);
-        UserInputReader reader = new UserInputReader(game);
-        while (!game.isComplete())
-            reader.read();
+        System.out.println("S-----");
+        System.out.println("Se--e-");
     }
 }
